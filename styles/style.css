@@ -1,0 +1,17 @@
+html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#calculator-display {
+    margin: 20px 20px;
+    border: 1px solid;
+}
+
+#calculator-buttons {
+    margin: 20px 20px;
+    border: 1px solid;
+    display: grid;
+    grid-template-columns: repeat(4, 2fr);
+}

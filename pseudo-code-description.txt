@@ -1,0 +1,10 @@
+1. Creating functions for basic math operators.
+
+2. Creating operate func, which gets operator and 2 numbers,
+calls basic math functions of p.1 on the 2 numbers according 
+to selection of opertator, and returns the result.
+
+3. Creating basic HTML calculator UI.
+
+4. Creating a function which populate display of the 
+calculator on clicking of number buttons.
