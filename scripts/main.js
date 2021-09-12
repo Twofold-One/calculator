@@ -98,6 +98,8 @@ function operatorClick() {
                     storedValue.num1 = null;
                     storedValue.num2 = null;
                     console.log(storedValue);  
+                } else if (storedValue.operator === '/' && display.textContent == 0) {
+                    alert('You can\'t divide by 0!');
                 } else if (storedValue.result !== null && storedValue.operator !== null) {
                     storedValue.num1 = storedValue.result;
                     storedValue.num2 = Number(display.textContent);
@@ -130,6 +132,8 @@ function equalityClick() {
         } else if (storedValue.result !== null && storedValue.operator === null) {
             display.textContent = storedValue.result;
             console.log(storedValue);
+        } else if (storedValue.operator === '/' && display.textContent == 0) {
+            alert('You can\'t divide by 0!');
         } else if (storedValue.result !== null) {
             storedValue.num1 = storedValue.result;
             storedValue.num2 = Number(display.textContent);
@@ -183,12 +187,43 @@ function allClear() {
 }
 allClear();
 
-// ??????? Alert on deviding on zero
-function divideByZeroAlert() { 
+//Backspace function
+function backspace() {
     const display = document.querySelector('#calculator-display');
-    if (display.textContent === Infinity) {
-        alert('You can\'t divide by 0!');
-        storedValue.result = null;
-    }       
+    const backspaceButton = document.querySelector('#backspace-button');
+
+    backspaceButton.addEventListener('click', () => {
+        if (display.textContent.length > 1)
+        display.textContent = display.textContent.slice(0, -1);
+        else {
+            display.textContent = 0;
+        }
+    });
 }
-divideByZeroAlert();
+backspace();
+
+//percentage function
+function percentage() {
+    const display = document.querySelector('#calculator-display');
+    const percentageButton = document.querySelector('#button-percentage');
+
+    percentageButton.addEventListener('click', () => {
+        display.textContent = (Number(display.textContent) / 100).toString();
+    });
+}
+percentage();
+
+//plus-minus function
+function plusMinus() {
+    const display = document.querySelector('#calculator-display');
+    const plusMinusButton = document.querySelector('#button-plus-minus');
+
+    plusMinusButton.addEventListener('click', () => {
+        if (Number(display.textContent) > 0) {
+            display.textContent = (0 - Number(display.textContent)).toString();
+        } else (
+            display.textContent = Math.abs(Number(display.textContent))
+        )
+    });
+}
+plusMinus();
