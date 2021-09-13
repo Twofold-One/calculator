@@ -45,7 +45,7 @@ const storedValue = {
 function displayNumbers() {
     const display = document.querySelector('#calculator-display');
     const numButtons = document.querySelectorAll('#button-number');
-    const dotButton = document.querySelector('#button-dot'); 
+    const dotButton = document.querySelector('#button-dot');
 
     //One dot function
     function oneDot() {
@@ -92,7 +92,7 @@ function operatorClick() {
             button.addEventListener('click', function(e) {
                 if (storedValue.num1 !== null && storedValue.operator !== null) {
                     storedValue.num2 = Number(display.textContent);
-                    storedValue.result = operate(storedValue.operator, storedValue.num1, storedValue.num2);
+                    storedValue.result = roundDecimals(operate(storedValue.operator, storedValue.num1, storedValue.num2));
                     display.textContent = storedValue.result;
                     storedValue.operator = e.target.textContent;
                     storedValue.num1 = null;
@@ -103,7 +103,7 @@ function operatorClick() {
                 } else if (storedValue.result !== null && storedValue.operator !== null) {
                     storedValue.num1 = storedValue.result;
                     storedValue.num2 = Number(display.textContent);
-                    storedValue.result = operate(storedValue.operator, storedValue.num1, storedValue.num2);
+                    storedValue.result = roundDecimals(operate(storedValue.operator, storedValue.num1, storedValue.num2));
                     display.textContent = storedValue.result;
                     storedValue.operator = e.target.textContent;
                     storedValue.num1 = null;
@@ -137,7 +137,7 @@ function equalityClick() {
         } else if (storedValue.result !== null) {
             storedValue.num1 = storedValue.result;
             storedValue.num2 = Number(display.textContent);
-            storedValue.result = operate(storedValue.operator, storedValue.num1, storedValue.num2);
+            storedValue.result = roundDecimals(operate(storedValue.operator, storedValue.num1, storedValue.num2));
             display.textContent = storedValue.result;
             storedValue.num1 = null;
             storedValue.num2 = null;
@@ -145,7 +145,7 @@ function equalityClick() {
             console.log(storedValue);
         } else {
             storedValue.num2 = Number(display.textContent);
-            storedValue.result = operate(storedValue.operator, storedValue.num1, storedValue.num2);
+            storedValue.result = roundDecimals(operate(storedValue.operator, storedValue.num1, storedValue.num2));
             display.textContent = storedValue.result;
             storedValue.num1 = null;
             storedValue.num2 = null;
@@ -227,3 +227,37 @@ function plusMinus() {
     });
 }
 plusMinus();
+
+//round decimals function
+function roundDecimals(number) {
+    return Math.round(number * 100) / 100;
+}
+
+//display overflow block function
+function displayOverflowBlock() {
+    const display = document.querySelector('#calculator-display');
+    const numButtons = document.querySelectorAll('#button-number');
+
+    numButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (display.textContent.toString().length > 15) {
+                display.textContent = display.textContent.substring(0, 15);
+            }
+        });
+    });    
+}
+displayOverflowBlock();
+
+
+
+//keyboard support function
+function keyboardKey() {
+    const display = document.querySelector('#calculator-display');
+    const numButtons = document.querySelectorAll('#button-number');
+
+    window.addEventListener('keydown', (e) => {
+        const key = document.querySelector(`button[key='${e.key}']`);
+        key.click();
+    });
+}
+keyboardKey();
